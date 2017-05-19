@@ -170,12 +170,10 @@ RUN      buildDeps="autoconf \
         rm -rf ${DIR} && \
 #RUN  \
 ## ffmpeg https://ffmpeg.org/
+## use idealhack’s fork for now
         DIR=$(mktemp -d) && cd ${DIR} && \
-        gpg --keyserver pool.sks-keyservers.net --recv-keys ${FFMPEG_KEY} && \
-        curl -sLO http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz && \
-        curl -sLO http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz.asc && \
-        gpg --batch  --verify ffmpeg-${FFMPEG_VERSION}.tar.gz.asc ffmpeg-${FFMPEG_VERSION}.tar.gz && \
-        tar -zx --strip-components=1 -f ffmpeg-${FFMPEG_VERSION}.tar.gz && \
+        curl -sL https://github.com/idealhack/FFmpeg/archive/avformat/rtsp.tar.gz | \
+        tar -zx --strip-components=1 && \
         ./configure \
         --bindir="${SRC}/bin" \
         --disable-debug \
